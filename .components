@@ -1,6 +1,6 @@
 ---
 :renderer: haml
-:script: mootools
+:script: jquery
 :mock: none
 :orm: mongoid
 :stylesheet: less
