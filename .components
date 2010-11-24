@@ -1,0 +1,8 @@
+---
+:renderer: haml
+:script: mootools
+:mock: none
+:orm: mongoid
+:stylesheet: less
+:test: none
+

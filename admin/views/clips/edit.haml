@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:clips, :index)
+      %li=link_to pat(:new), url(:clips, :new)
+      %li.active=link_to pat(:edit), url(:clips, :edit, :id => @clip.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:clip)
+    .inner
+      -form_for :clip, url(:clips, :update, :id => @clip.id), :method => :put, :class => :form do |f|
+        =partial "clips/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

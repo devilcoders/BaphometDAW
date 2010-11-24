@@ -1,0 +1,33 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:tracks, :index)
+      %li=link_to pat(:new), url(:tracks, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:tracks)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:track, :created_at)
+          %th=mat(:track, :title)
+          %th=mat(:track, :updated_at)
+          %th=mat(:track, :account_id)
+          %th=mat(:track, :atype)
+          %th.last="&nbsp;"
+        -@tracks.each do |track|
+          %tr
+            %td.first=track.created_at
+            %td=track.title
+            %td=track.updated_at
+            %td=track.account_id
+            %td=track.atype
+            %td.last
+              =button_to pat(:edit), url(:tracks, :edit, :id => track.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:tracks, :destroy, :id => track.id), :method => :delete, :class => :button_to
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

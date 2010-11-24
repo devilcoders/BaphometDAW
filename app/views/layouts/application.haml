@@ -1,0 +1,43 @@
+!!! 5
+%head
+  %meta{ :charset => "utf-8" }
+  %title Bahometh DAW
+  = stylesheet_link_tag 'reset', '/stylesheets/ui/bahometh/ui.css', 'styles'
+  %script{:src => "http://js.pusherapp.com/1.6/pusher.js", :type => "text/javascript"}
+  = javascript_include_tag 'external/json2', 'external/underscore', |
+    'external/jquery-1.4.4.min.js', 'external/backbone.js',         |
+    'external/jquery-ui-1.8.6.min', 'external/shortcut.js',         |
+    'collabdaw.js', 'sync.js'
+
+
+%body.bahometh
+  #wrapper
+    #container
+      %section#app-controls.app-section
+        %section#controls-tempo
+          .controls-block
+            %ul.inline
+              %li
+                %input#tempo{:type => "text", :value => "120"}/
+              %li
+                %a#metronome{:href => "#"} metronome
+        %section#controls-management
+          .controls-block
+            %ul.inline
+              %li
+                %a#follow{:href => "#"} follow
+              %li
+                %input#positions{:type => "text", :value => "00:00:00"}/
+              %li
+                %a#play{:href => "#"} play
+              %li
+                %a#play{:href => "#"} stop
+      %section#app-assets.app-section
+        .assets-block
+          %ul
+      %section#app-timeline.app-section
+        .tracks-block
+          .track
+      %section#app-assets-controls.app-section
+      %section#app-info.app-section
+

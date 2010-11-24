@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:sessions, :index)
+      %li=link_to pat(:new), url(:sessions, :new)
+      %li.active=link_to pat(:edit), url(:sessions, :edit, :id => @session.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:session)
+    .inner
+      -form_for :session, url(:sessions, :update, :id => @session.id), :method => :put, :class => :form do |f|
+        =partial "sessions/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")
