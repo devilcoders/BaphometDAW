@@ -5,10 +5,11 @@ uri = URI.parse(ENV['MONGOHQ_URL'])
 host = case Padrino.env 
   when :development then 'localhost'
   when :production  then uri.host
+end
 port = case Padrino.env 
   when :development then Mongo::Connection::DEFAULT_PORT
   when :production  then uri.port
-
+end
 database_name = case Padrino.env
   when :development then 'bahometh_development'
   when :production  then 'bahometh_production'
