@@ -6,6 +6,7 @@ gem 'rack-flash'
 gem 'thin' # or mongrel
 
 # Component requirements
+gem 'mini_magick'
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'less'
 gem 'rack-less'

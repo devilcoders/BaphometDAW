@@ -3,16 +3,15 @@ class Asset
   include Mongoid::Timestamps # adds created_at and updated_at fields
 
   # field <name>, :type => <type>, :default => <value>
-  field :file_name, :type => String
-  field :file_path, :type => String
-  field :file_type, :type => String
-  
-  references_many :clips, :inverse_of => :clips
-  
+  field :file, :type => String
+  field :created_at, :type => DateTime
+  field :filetype, :type => String
+
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
 
   # You can create a composite key in mongoid to replace the default id using the key macro:
   # key :field <, :another_field, :one_more ....>
-
+  
 end
+

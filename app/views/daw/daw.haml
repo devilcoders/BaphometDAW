@@ -1,0 +1,32 @@
+%section#app-controls.app-section
+  %section#controls-title
+    .controls-block
+      %ul.inline
+        %li
+          %input#title{:type => "text", :value => "#{@title}", :disabled => "disabled"}
+  %section#controls-tempo
+    .controls-block
+      %ul.inline
+        %li
+          %input#tempo{:type => "text", :value => "120"}
+        %li
+          %a#metronome{:href => "#"} metronome
+  %section#controls-management
+    .controls-block
+      %ul.inline
+        %li
+          %a#follow{:href => "#"} follow
+        %li
+          %input#positions{:type => "text", :value => "00:00:00"}
+        %li
+          %a#play{:href => "#"} play
+        %li
+          %a#play{:href => "#"} stop
+%section#app-assets.app-section
+  .assets-block
+    %ul
+%section#app-timeline.app-section
+  .tracks-block
+%section#app-assets-controls.app-section
+%section#app-info.app-section
+

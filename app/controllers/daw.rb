@@ -18,16 +18,27 @@ Bahometh.controllers :daw do
   #   "Hello world!"
   # end
 
-  get :index, :map => "/" do
-    render :'daw/index'
+  get :daw, :map => "/daw/:id" do
+    audio_session = AudioSession.find(params[:id])
+    @asset = Asset.new
+    @title = audio_session.title
+    render :'daw/daw'
   end
-  
-  post '/upload' do
-    FileUtils.mkdir_p("./public/files")
-    File.open(params[:file].filename, 'wb') do |file|
-      file.write(datafile[:tempfile].read)
+
+  post :new, :map => "/audio_sessions/new" do
+    title = params[:audio_session][:title]
+    audio_session = AudioSession.new({
+      :title => title
+    })
+    if audio_session.save
+      redirect "/daw/#{audio_session._id}"
     end
-    "wrote to #{filename}\n"
+  end
+
+  get :index, :map => "/" do
+    @audio_session = AudioSession.new
+    render :'daw/index'
   end
 
 end
+

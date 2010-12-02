@@ -1,11 +1,5 @@
 PIXEL_SECOND = 10;
 
-
-
-soundManager.url = '/flash/';
-
-
-
 /*------------------------------------------ 
   CLIP
 ------------------------------------------*/
@@ -39,8 +33,7 @@ function Clip(options) {
     maxWidth: this.track.width(),
     minWidth: PIXEL_SECOND,
     resize: function(event, ui){
-     clipObject.update_duration(ui.size.width)
-     clipObject.update_position(ui.position.left, 5)
+     clipObject.update_duration(ui.size.width/PIXEL_SECOND)
     }
   });
 
@@ -61,9 +54,6 @@ function Clip(options) {
     url: this.filepath,
     autoLoad: true,
     autoPlay: false,
-    onload: function() {
-      clipObject.update_duration(this.duration/1000);
-    },
     volume: 50
   });  
 
@@ -74,7 +64,7 @@ function Clip(options) {
   this.update_duration = function(duration) {
     clip.css("width", duration*PIXEL_SECOND);
     this.duration = duration*PIXEL_SECOND;
-    clip.find('.clip-duration').text(this.duration)
+    clip.find('.clip-duration').text(this.duration/PIXEL_SECOND)
   };
 
   this.update_position = function(left, top) {
@@ -104,8 +94,6 @@ function Track(options) {
   track.droppable({
     accept: '.asset',
     drop: function(event, ui){
-      console.log(event);
-      console.log(ui);
       new Clip({
         id: ui.draggable.context.firstChild.id.split('-')[1],
         track: $('#app-timeline .tracks-block').find("#track-" + trackObject.id),
@@ -115,11 +103,6 @@ function Track(options) {
     }
   });
 
-}
-
-Track.prototype.find_by_id = function(id){
-  var result = $('#app-timeline .tracks-block').find("#track-" + id);
-  return result;
 }
 
 
