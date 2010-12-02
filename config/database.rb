@@ -1,14 +1,12 @@
 # Connection.new takes host, port
-require 'uri'
-uri = URI.parse(ENV['MONGOHQ_URL'])
 
 host = case Padrino.env 
   when :development then 'localhost'
-  when :production  then uri.host
+  when :production  then 'flame.mongohq.com'
 end
 port = case Padrino.env 
   when :development then Mongo::Connection::DEFAULT_PORT
-  when :production  then uri.port
+  when :production  then 27062
 end
 database_name = case Padrino.env
   when :development then 'bahometh_development'
