@@ -49,14 +49,6 @@ function Clip(options) {
 
   this.track.append(clip);
 
-  var clipSound = soundManager.createSound({
-    id: this.id,
-    url: this.filepath,
-    autoLoad: true,
-    autoPlay: false,
-    volume: 50
-  });  
-
   this.remove = function(){
     clip.remove();
   };
@@ -95,7 +87,7 @@ function Track(options) {
     accept: '.asset',
     drop: function(event, ui){
       new Clip({
-        id: ui.draggable.context.firstChild.id.split('-')[1],
+        id: ui.draggable.context.firstElementChild.id.split('-')[1],
         track: $('#app-timeline .tracks-block').find("#track-" + trackObject.id),
         position: (ui.offset.left - 330)/PIXEL_SECOND,
         filepath: ui.draggable.context.firstChild.href

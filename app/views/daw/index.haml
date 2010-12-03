@@ -1,7 +1,11 @@
-- form_for @audio_session, '/audio_sessions/new', :id => 'audio_session' do |f|
-  = f.error_messages
-  %p
-    = f.label :title, :caption => "Title"
-    = f.text_field :title
-  %p
-    = f.submit "Create", :class => 'button'
+- if @audio_session != nil
+  - form_for @audio_session, '/audio_sessions/new', :id => 'audio_session' do |f|
+    = f.error_messages
+    %p
+      = f.label :title, :caption => "Title"
+      = f.text_field :title
+    %p
+      = f.submit "Create", :class => 'button'
+- else
+  %a{:href => "/sc/redirect"}
+    Login with your Soundcloud account

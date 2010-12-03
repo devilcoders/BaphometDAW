@@ -14,8 +14,11 @@ gem 'haml'
 gem "mongoid", "~> 2.0.0.beta.19"
 gem "bson_ext"
 gem 'json'
+gem 'oauth'
+gem "multipart-post"
+gem 'oauth-active-resource'
+gem 'soundcloud-ruby-api-wrapper', :require => 'soundcloud'
 
-# Test requirements
 
 
 # Padrino
