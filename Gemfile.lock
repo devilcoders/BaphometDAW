@@ -5,6 +5,9 @@ GEM
       activesupport (= 3.0.3)
       builder (~> 2.1.2)
       i18n (~> 0.4)
+    activeresource (3.0.3)
+      activemodel (= 3.0.3)
+      activesupport (= 3.0.3)
     activesupport (3.0.3)
     bcrypt-ruby (2.1.2)
     bson (1.1.2)
@@ -38,7 +41,14 @@ GEM
       mongo (~> 1.1)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
+    multipart (0.2.1)
+    multipart-post (1.0.1)
     mutter (0.5.3)
+    oauth (0.4.4)
+    oauth-active-resource (0.4.6)
+      activeresource
+      multipart
+      oauth (>= 0.3.6)
     padrino (0.9.19)
       padrino-admin (= 0.9.19)
       padrino-core (= 0.9.19)
@@ -75,6 +85,9 @@ GEM
     sinatra (1.1.0)
       rack (~> 1.1)
       tilt (~> 1.1)
+    soundcloud-ruby-api-wrapper (0.4.8)
+      oauth (>= 0.3.6)
+      oauth-active-resource (>= 0.4.4)
     subexec (0.0.4)
     thin (1.2.7)
       daemons (>= 1.0.9)
@@ -105,8 +118,12 @@ DEPENDENCIES
   less
   mini_magick
   mongoid (~> 2.0.0.beta.19)
+  multipart-post
+  oauth
+  oauth-active-resource
   padrino (= 0.9.19)
   rack-flash
   rack-less
   rake
+  soundcloud-ruby-api-wrapper
   thin
