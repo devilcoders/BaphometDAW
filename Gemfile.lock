@@ -32,8 +32,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mini_magick (3.1)
-      subexec (~> 0.0.4)
     mongo (1.1.2)
       bson (>= 1.1.1)
     mongoid (2.0.0.beta.20)
@@ -88,7 +86,6 @@ GEM
     soundcloud-ruby-api-wrapper (0.4.8)
       oauth (>= 0.3.6)
       oauth-active-resource (>= 0.4.4)
-    subexec (0.0.4)
     thin (1.2.7)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -116,7 +113,6 @@ DEPENDENCIES
   haml
   json
   less
-  mini_magick
   mongoid (~> 2.0.0.beta.19)
   multipart-post
   oauth
