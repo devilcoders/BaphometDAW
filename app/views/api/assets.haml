@@ -1,0 +1,6 @@
+{"assets": [
+- @assets.each do |asset|
+  = asset.attributes.to_json
+  -unless @assets[-1] == asset
+    ,
+]}

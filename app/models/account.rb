@@ -8,11 +8,6 @@ class Account
   field :email,            :type => String
   field :crypted_password, :type => String
   field :role,             :type => String
-  
-  references_many :tracks
-  references_many :clips
-  references_many :assets
-  references_many :audio_sessions
 
   # Validations
   validates_presence_of     :email, :role

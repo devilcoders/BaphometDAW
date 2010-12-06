@@ -7,7 +7,13 @@ class User
   field :sc_username, :type => String
   field :access_token, :type => String
   field :access_token_secret, :type => String
-
+  field :role, :type => String
+  
+  references_many :tracks, :stored_as => :array, :inverse_of => :users
+  references_many :clips, :stored_as => :array, :inverse_of => :users
+  references_many :assets
+  references_many :sessions, :stored_as => :array, :inverse_of => :users 
+  
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
 

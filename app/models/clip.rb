@@ -6,10 +6,14 @@ class Clip
   field :title, :type => String
   field :duration, :type => Integer
   field :position, :type => Integer
-  field :atype, :type => String
+  field :asset_duration, :type => Integer
+  field :asset_id, :type => Integer
+  field :waveform_url, :type => String
+  field :filepath, :type => String
 
-  referenced_in :account
-  referenced_in :asset
+  references_many :users, :stored_as => :array, :inverse_of => :clips
+  references_many :tracks, :stored_as => :array, :inverse_of => :clips
+  references_many :sessions, :stored_as => :array, :inverse_of => :clips
 
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>

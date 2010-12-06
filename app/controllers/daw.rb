@@ -23,14 +23,13 @@ Bahometh.controllers :daw do
   get :daw, :map => "/daw/:id" do
     if not session[:user_id].nil?
       @user = User.find(session[:user_id])
-      audio_session = AudioSession.find(params[:id])
+      @session = Session.find(params[:id])
       access_token = OAuth::AccessToken.new($sc_consumer, @user.access_token, @user.access_token_secret)
       @sc = Soundcloud.register({:access_token => access_token})
       @sc_user = @sc.User.find_me
       @assets = @sc_user.tracks
-      p @tracks 
       @asset = Asset.new
-      @title = audio_session.title    
+      @title = @session.title    
       render :'daw/daw'
     else
       render '/'
@@ -58,8 +57,13 @@ Bahometh.controllers :daw do
     # check if user with me.id exists, update username & oauth stuff otherwise create a new user
     user = User.find(:first, :conditions => {:sc_user_id => me.id})
     if user.nil?
-      user = User.create({:sc_user_id => me.id, :sc_username => me.username,
-               :access_token => sc_access_token.token, :access_token_secret => sc_access_token.secret })
+      user = User.create({
+        :sc_user_id => me.id, 
+        :sc_username => me.username,
+        :access_token => sc_access_token.token, 
+        :access_token_secret => sc_access_token.secret,
+        :role => "owner" 
+      })
     else
       user.sc_username = me.username
       user.access_token = sc_access_token.token
@@ -78,20 +82,26 @@ Bahometh.controllers :daw do
     redirect "/"      
   end
   
-  post :new, :map => "/audio_sessions/new" do
-    title = params[:audio_session][:title]
-    audio_session = AudioSession.new({
-      :title => title
-    })
-    if audio_session.save
-      redirect "/daw/#{audio_session._id}"
+  post :new, :map => "/sessions/new" do
+    if not session[:user_id].nil?
+      user = User.find(session[:user_id])
+      title = params[:session][:title]
+      session = Session.new({:title => title})
+      if session.save      
+        user.sessions << session        
+        redirect "/daw/#{session._id}"
+      else
+        redirect "/"
+      end
+    else
+      redirect "/"
     end
   end
 
   get :index, :map => "/" do
     if not session[:user_id].nil?
       @user = User.find(session[:user_id]) 
-      @audio_session = AudioSession.new     
+      @session = Session.new     
     end
     render :'daw/index'
   end

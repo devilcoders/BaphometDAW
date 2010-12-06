@@ -1,5 +1,5 @@
-- if @audio_session != nil
-  - form_for @audio_session, '/audio_sessions/new', :id => 'audio_session' do |f|
+- if @session != nil
+  - form_for @session, '/sessions/new', :id => 'session' do |f|
     = f.error_messages
     %p
       = f.label :title, :caption => "Title"

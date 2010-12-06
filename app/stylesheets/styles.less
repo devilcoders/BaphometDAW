@@ -156,8 +156,17 @@ a{
         border: 2px solid @gray2;
         background-color: @orange;
         position: absolute !important;
+        overflow: hidden;
         .clip-info{
-          padding-top: 5px;
+          color: @gray1;
+          .clip-title{
+            margin-top: 15px;
+          }
+          .clip-waveform{
+            top: 0;
+            position: absolute;
+            opacity: 0.6;
+          }
         }
       }
     }

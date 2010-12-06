@@ -6,10 +6,9 @@ class Track
   field :title, :type => String
   field :atype, :type => String
   
-  embeds_many :clips
-  embedded_in :audio_session, :inverse_of => :tracks
-  
-  referenced_in :account
+  references_many :clips, :stored_as => :array, :inverse_of => :tracks
+  references_many :sessions, :stored_as => :array, :inverse_of => :tracks
+  references_many :users, :stored_as => :array, :inverse_of => :tracks 
   
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>

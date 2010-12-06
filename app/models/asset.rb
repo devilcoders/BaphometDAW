@@ -6,6 +6,10 @@ class Asset
   field :file, :type => String
   field :created_at, :type => DateTime
   field :filetype, :type => String
+  
+  referenced_in :user
+  references_many :clips
+  
 
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>

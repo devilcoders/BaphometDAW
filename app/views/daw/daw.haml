@@ -23,16 +23,10 @@
         %li
           %a#play{:href => "#"} stop
         %li
-          %a#add-track{:href => "#"} add track
+          %a#add-track{:href => "/api/tracks/new.json?session_id=#{@session._id}"} add track
 %section#app-assets.app-section
   .assets-block
     %ul
-      - if @assets != nil
-        - @assets.each do |asset|
-          %li.asset
-            %a{:class => "sc-player", :id => "asset-#{asset.id}", :href => "#{asset.permalink_url}", :'data-duration' => "#{asset.duration}"}
-              = asset.title
-            
 %section#app-timeline.app-section
   .tracks-block
 %section#app-assets-controls.app-section
