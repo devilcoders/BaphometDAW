@@ -17,7 +17,7 @@ gem 'json'
 #Soundcloud
 gem 'oauth'
 gem "multipart-post"
-gem 'oauth-active-resource'
+gem 'oauth-active-resource' 
 gem 'soundcloud-ruby-api-wrapper', :require => 'soundcloud'
 
 # Padrino
