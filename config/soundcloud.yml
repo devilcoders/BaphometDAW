@@ -1,0 +1,15 @@
+development:
+  key: <your soundcloud consumer key>
+  secret: <your soundcloud consumer secret>
+  site: <your soundcloud site>
+  request_token: <your soundcloud request token address>
+  access_token: <your soundcloud access token address>
+  authorize: <your soundcloud authorize address>
+
+production:
+  key: <your soundcloud consumer key>
+  secret: <your soundcloud consumer secret>
+  site: <your soundcloud site>
+  request_token: <your soundcloud request token address>
+  access_token: <your soundcloud access token address>
+  authorize: <your soundcloud authorize address>
