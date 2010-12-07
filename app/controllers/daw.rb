@@ -22,6 +22,7 @@ Bahometh.controllers :daw do
   
   get :daw, :map => "/daw/:id" do
     if not session[:user_id].nil?
+      session[:session_id] = params[:id]
       @user = User.find(session[:user_id])
       @session = Session.find(params[:id])
       access_token = OAuth::AccessToken.new($sc_consumer, @user.access_token, @user.access_token_secret)

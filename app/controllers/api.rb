@@ -39,8 +39,8 @@ Bahometh.controllers :api do
     case content_type
     when :json
       if not session[:user_id].nil?
-        session = Session.find(params[:session_id])
-        @tracks = session.tracks.all 
+        _session = Session.find(session[:session_id])
+        @tracks = _session.tracks.all 
         render :"api/tracks/session"
       end            
     end
@@ -50,8 +50,8 @@ Bahometh.controllers :api do
     case content_type
     when :json
       if not session[:user_id].nil?
-        session = Session.find(params[:session_id])
-        @clips = session.clips.all 
+        _session = Session.find(session[:session_id])
+        @clips = _session.clips.all 
         render :"api/clips/session"
       end            
     end

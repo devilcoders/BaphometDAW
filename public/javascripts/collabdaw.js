@@ -6,6 +6,7 @@ soundManager.flashVersion = 9;
 /*------------------------------------------ 
   CLIP
 ------------------------------------------*/
+
 function Clip(options) {
 
   this.id = options.id;

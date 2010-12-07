@@ -3,14 +3,8 @@ class Asset
   include Mongoid::Timestamps # adds created_at and updated_at fields
 
   # field <name>, :type => <type>, :default => <value>
-  field :file, :type => String
-  field :created_at, :type => DateTime
-  field :filetype, :type => String
-  
-  referenced_in :user
-  references_many :clips
-  
-
+  field :sc_asset, :type => Hash
+    
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
 

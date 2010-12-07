@@ -1,3 +1,9 @@
+- content_for :head_js do
+  = javascript_include_tag 'external/jquery-1.4.4.min.js', 'external/jquery-ui-1.8.6.min', 'external/json2.js', |
+                           'external/underscore.js', 'external/backbone.js', |
+                           'bahomet-js/models.js', 'bahomet-js/collections.js', 'bahomet-js/controllers.js', |
+                           'bahomet-js/views.js', 'bahomet-js/app.js', 'sync.js'
+
 %section#app-controls.app-section
   %section#controls-title
     .controls-block
@@ -29,6 +35,27 @@
     %ul
 %section#app-timeline.app-section
   .tracks-block
+    %ul.tracks-list
 %section#app-assets-controls.app-section
 %section#app-info.app-section
 
+%script{ :type => "text/template", :id => "asset-template" }
+  <a id="asset-<%= id %>" href="#">
+  <%= title %>
+  </a>
+  
+%script{ :type => "text/template", :id => "track-template" }
+  <div id="track-<%= _id %>">
+  <ul class="clips-list">
+  </ul>
+  </div>
+  
+%script{ :type => "text/template", :id => "clip-template" }
+  <div class='clip' id="clip-<%= _id %>" style="width: <%= duration/100 %>px; left: <%= position %>px;top:5px;">
+  <div class='clip-info'>
+  <div class='clip-waveform'>
+  <img width="<%= duration/100 %>px" height='60px' src="<%= waveform_url %>" /></div>
+  <div class='clip-title'><%= title %></div>
+  <div class='clip-duration'><%= duration/1000 %></div>
+  </div>
+  </div>
