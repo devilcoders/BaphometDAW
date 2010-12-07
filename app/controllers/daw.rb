@@ -18,7 +18,10 @@ Bahometh.controllers :daw do
   #   "Hello world!"
   # end
   
-  $sc_consumer = Soundcloud.consumer('8h4MLbPKttdxZm3l0YN3w', '1bGm9KhjIMnCKEZGn5khJf9nJJOPjUdCJ9usoAB7XgY')
+  file_name = File.join(File.dirname(__FILE__), "../..", "config", "soundcloud.yml")
+  $soundcloud = YAML.load(ERB.new(File.new(file_name).read).result)
+
+  $sc_consumer = Soundcloud.consumer($soundcloud[ENV['RACK_ENV']]['key'], $soundcloud[ENV['RACK_ENV']]['secret'], $soundcloud[ENV['RACK_ENV']]['site'])
   
   get :daw, :map => "/daw/:id" do
     if not session[:user_id].nil?
@@ -42,7 +45,7 @@ Bahometh.controllers :daw do
     sc_request_token = $sc_consumer.get_request_token(:oauth_callback => callback_url)
     session[:sc_request_token] = sc_request_token.token
     session[:sc_request_token_secret] = sc_request_token.secret
-    @authorize_url = "http://soundcloud.com/oauth/authorize?oauth_token=#{sc_request_token.token}"
+    @authorize_url = "#{$soundcloud[ENV['RACK_ENV']]['authorize']}?oauth_token=#{sc_request_token.token}"
     redirect @authorize_url
   end
 
@@ -52,8 +55,9 @@ Bahometh.controllers :daw do
   # he will then be redirected to the loggedin page.
   get :callback, :map => "/sc/callback" do
     sc_request_token = OAuth::RequestToken.new($sc_consumer, session[:sc_request_token], session[:sc_request_token_secret])
-    sc_access_token = sc_request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])  
-    sc = Soundcloud.register({:access_token => sc_access_token})
+    sc_access_token = sc_request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
+    p sc_access_token
+    sc = Soundcloud.register({:access_token => sc_access_token, :site => $soundcloud[ENV['RACK_ENV']]['site']})
     me = sc.User.find_me
     # check if user with me.id exists, update username & oauth stuff otherwise create a new user
     user = User.find(:first, :conditions => {:sc_user_id => me.id})
