@@ -38,7 +38,7 @@ Bahometh.controllers :daw do
   end
 
   get :redirect, :map => "/sc/redirect" do
-    callback_url = "http://192.168.1.34:3000/sc/callback"
+    callback_url = "http://#{request.env[:host]}:3000/sc/callback"
     sc_request_token = $sc_consumer.get_request_token(:oauth_callback => callback_url)
     session[:sc_request_token] = sc_request_token.token
     session[:sc_request_token_secret] = sc_request_token.secret
