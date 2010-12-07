@@ -1,4 +1,4 @@
-class Bahometh < Padrino::Application
+class Bahomet < Padrino::Application
   register LessInitializer
   register Padrino::Mailer
   register Padrino::Helpers

@@ -1,10 +1,10 @@
 development:
-  key: <your soundcloud consumer key>
-  secret: <your soundcloud consumer secret>
-  site: <your soundcloud site>
-  request_token: <your soundcloud request token address>
-  access_token: <your soundcloud access token address>
-  authorize: <your soundcloud authorize address>
+  key: "HPVSlSWvz2eoFt5jGGB8A"
+  secret: "sI3OPMO5j86h2OhNH0iRBrb9lfYpSRzOklfBAYfhFE"
+  site: http://api.sandbox-soundcloud.com/
+  request_token: http://api.sandbox-soundcloud.com/oauth/request_token
+  access_token: http://api.sandbox-soundcloud.com/oauth/access_token
+  authorize: http://sandbox-soundcloud.com/oauth/authorize
 
 production:
   key: <your soundcloud consumer key>

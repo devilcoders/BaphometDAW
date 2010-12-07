@@ -22,4 +22,4 @@
 #
 
 # Mounts the core application for this project
-Padrino.mount("Bahometh").to('/')
+Padrino.mount("Bahomet").to('/')
