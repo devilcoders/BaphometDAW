@@ -61,6 +61,9 @@ a{
     text-decoration: underline;
   }
 }
+ul{
+  list-style: none;
+}
 #wrapper{
   padding: 10px;
 }
@@ -157,18 +160,24 @@ a{
         background-color: @orange;
         position: absolute !important;
         overflow: hidden;
+        .clip-waveform{
+          top: 0;
+          position: absolute;
+          opacity: 0.6;
+          z-index: 0;
+        }
         .clip-info{
           color: @gray1;
+          position: relative;
+          z-index: 1; 
           .clip-title{
             margin-top: 15px;
           }
-          .clip-waveform{
-            top: 0;
-            position: absolute;
-            opacity: 0.6;
-          }
         }
-      }      
+      }
+      .ui-selected{
+        background-color: @gray2;
+      }
     }
   }
 }

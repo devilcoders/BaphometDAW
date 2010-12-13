@@ -1,25 +1,7 @@
 Bahomet.controllers :daw do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
-
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
-
-  # get "/example" do
-  #   "Hello world!"
-  # end
   
-  file_name = File.join(File.dirname(__FILE__), "../..", "config", "soundcloud.yml")
-  $soundcloud = YAML.load(ERB.new(File.new(file_name).read).result)
+  soundcloud_config = File.join(File.dirname(__FILE__), "../..", "config", "soundcloud.yml")
+  $soundcloud = YAML.load(File.new(soundcloud_config).read)
 
   $sc_consumer = Soundcloud.consumer($soundcloud[ENV['RACK_ENV']]['key'], $soundcloud[ENV['RACK_ENV']]['secret'], $soundcloud[ENV['RACK_ENV']]['site'])
   
@@ -105,7 +87,8 @@ Bahomet.controllers :daw do
 
   get :index, :map => "/" do
     if not session[:user_id].nil?
-      @user = User.find(session[:user_id]) 
+      @user = User.find(session[:user_id])
+      @sessions = @user.sessions.all
       @session = Session.new     
     end
     render :'daw/index'

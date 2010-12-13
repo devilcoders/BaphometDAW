@@ -5,7 +5,7 @@ $(function(){
     CLIP model
   -------------------------------------------*/
   window.Clip = Backbone.Model.extend({
-    
+
     set: function(attributes, options) {
       Backbone.Model.prototype.set.call(this, attributes, options);
     },

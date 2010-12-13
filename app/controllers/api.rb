@@ -90,7 +90,6 @@ Bahomet.controllers :api do
         @track.clips << @clip
         session.clips << @clip
         @user.clips << @clip
-        p @clip
         render :"api/clips/new"
       end
     end

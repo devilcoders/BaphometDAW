@@ -6,6 +6,14 @@
       = f.text_field :title
     %p
       = f.submit "Create", :class => 'button'
+
+  #user-sessions
+    %ul
+      - @sessions.each do |session|
+        %li
+          %a{ :href => "/daw/#{session._id}"}
+            = session.title
+
 - else
   %a{:href => "/sc/redirect"}
     Login with your Soundcloud account

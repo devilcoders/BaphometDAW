@@ -10,7 +10,7 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'less'
 gem 'rack-less'
 gem 'haml'
-gem "mongoid", "~> 2.0.0.beta.19"
+gem "mongoid", "~> 2.0.0.beta.20"
 gem "bson_ext"
 gem 'json'
 
