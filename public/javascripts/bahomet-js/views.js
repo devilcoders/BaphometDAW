@@ -12,7 +12,9 @@ $(function(){
     
     events: {
       "resizestop"  :  "updateDuration",
-      "dragstop"    :  "updatePosition"
+      "resize"      :  "updateClipInfo",
+      "dragstop"    :  "updatePosition",
+      "click"       :  "getClipInfo"
     },
 
     initialize: function() {
@@ -33,6 +35,10 @@ $(function(){
         }
       })
     },
+    
+    updateClipInfo: function(){      
+      $(this.el).find('.clip-duration').text($(this.el).width()/10)
+    },
 
     updateDuration: function(){
       $.post('/api/clips/set_duration.json', {
@@ -44,6 +50,10 @@ $(function(){
           console.log("Duration changed in db!")
         }
       })
+    },
+    
+    getClipInfo: function(){
+      $('#clip-preview').html('<img class="clip-waveform" src="'+this.model.get("waveform_url")+'" width="100%" height="100px" />')
     },
     
     render: function() {
@@ -60,8 +70,7 @@ $(function(){
         containment: '.track',
         grid: [5, 0],
         stack: ".clip",
-        distance: 10,
-        handle: '.clip-info'
+        distance: 10
       });
       $(this.el).resizable({
         handles: 'e',
@@ -262,16 +271,27 @@ $(function(){
     addOneClip: function(clip) {
       var view = new ClipView({ model: clip });
       clip.get("track_ids").forEach(function(track_id){
+        console.log(Assets.get(clip.get("asset_id")))
         this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list")
-          .append(view.render().el)
+          .append(view.render().el);
+        var asset = Assets.get(clip.get("asset_id"))
+        soundManager.createSound({
+          id: clip.cid,
+          url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A"
+        });
       });
     },    
     addAllClips: function() {
       Clips.each(function(clip){
         var view = new ClipView({model: clip});
         clip.get("track_ids").forEach(function(track_id){
-        this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list")
-          .append(view.render().el)
+          this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list")
+            .append(view.render().el);
+          var asset = Assets.get(clip.get("asset_id"))
+          soundManager.createSound({
+            id: clip.cid,
+            url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A"
+          });
         });
       });
     }

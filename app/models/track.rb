@@ -4,7 +4,8 @@ class Track
 
   # field <name>, :type => <type>, :default => <value>
   field :title, :type => String
-  field :atype, :type => String
+  field :atype, :type => String, :default => "audio"
+  field :state, :type => String, :default => "active"
   
   references_many :clips, :stored_as => :array, :inverse_of => :tracks
   references_many :sessions, :stored_as => :array, :inverse_of => :tracks

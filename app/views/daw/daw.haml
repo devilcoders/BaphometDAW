@@ -1,6 +1,6 @@
 - content_for :head_js do
   = javascript_include_tag 'external/jquery-1.4.4.min.js', 'external/jquery-ui-1.8.7.min', 'external/json2.js', |
-                           'external/underscore.js', 'external/backbone.js', |
+                           'external/underscore.js', 'external/backbone.js', 'external/soundmanager2.js', |
                            'bahomet-js/models.js', 'bahomet-js/collections.js', 'bahomet-js/controllers.js', |
                            'bahomet-js/views.js', 'bahomet-js/app.js', 'sync.js' |
 
@@ -35,8 +35,15 @@
     %ul
 %section#app-timeline.app-section
   .tracks-block
+    #time-markers
     %ul.tracks-list
 %section#app-info.app-section
+  %section#debug-info
+    .info-console
+  %section#clip-info.state-hidden
+    #clip-text-data
+    #clip-actions
+    #clip-preview
 %section#app-clips-controls.app-section
   %ul
 
@@ -53,7 +60,7 @@
   
 %script{ :type => "text/template", :id => "clip-template" }
   <div class='clip-waveform'>
-  <img width="<%= asset_duration/100 %>px" height='60px' src="<%= waveform_url %>" />
+  <img width="<%= asset_duration/100 %>px" height='80px' src="<%= waveform_url %>" />
   </div>
   <div class='clip-info'>
   <div class='clip-title'><%= title %></div>

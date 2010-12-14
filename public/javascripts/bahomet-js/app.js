@@ -1,5 +1,7 @@
 $(function(){
 
+  soundManager.url = '/flash/';
+  soundManager.flashVersion = 9; 
 
   $('#add-track').click(function(e){
     e.preventDefault();
@@ -30,7 +32,5 @@ $(function(){
       //$("#app-clips-controls")
     })
   })
-
-
 
 });
