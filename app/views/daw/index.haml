@@ -1,19 +1,21 @@
-- if @session != nil
-  - form_for @session, '/sessions/new', :id => 'session' do |f|
-    = f.error_messages
-    %p
-      = f.label :title, :caption => "Title"
-      = f.text_field :title
-    %p
-      = f.submit "Create", :class => 'button'
+#front-wrap
+  = image_tag "logo.png", :id => "logo"
+  - if @session != nil
+    - form_for @session, '/sessions/new', :id => 'session' do |f|
+      = f.error_messages
+      %p
+        = f.label :title, :caption => "Title"
+        = f.text_field :title
+      %p
+        = f.submit "Create", :class => 'button'
 
-  #user-sessions
-    %ul
-      - @sessions.each do |session|
-        %li
-          %a{ :href => "/daw/#{session._id}"}
-            = session.title
+    #user-sessions
+      %ul
+        - @sessions.each do |session|
+          %li
+            %a{ :href => "/daw/#{session._id}"}
+              = session.title
 
-- else
-  %a{:href => "/sc/redirect"}
-    Login with your Soundcloud account
+  - else
+    %a#login{:href => "/sc/redirect"}
+      Login with your Soundcloud account

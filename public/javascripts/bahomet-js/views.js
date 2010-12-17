@@ -219,7 +219,8 @@ $(function(){
     el        :  $("#container"),
 
     events: {
-      
+      "click #play" :  "playSession",
+      "click #stop" :  "stopSession"
     },
 
     initialize: function() {
@@ -229,7 +230,7 @@ $(function(){
         'addOneClip' , 'addAllClips' ,
         'render'
       );
-
+      
       Assets.bind('add',     this.addOneAsset);
       Assets.bind('refresh', this.addAllAssets);
       Assets.bind('all',     this.render);
@@ -243,15 +244,31 @@ $(function(){
       Clips.bind('add',     this.addOneClip);
       Clips.bind('refresh', this.addAllClips);
       Clips.bind('all',     this.render);
-      Clips.fetch();
-
+      soundManager.onload = function() {
+        Clips.fetch();
+      }
       $(".tracks-list").selectable({
         filter: '.clip'
-      })
+      });
+      
     },
 
     render: function() {
       
+    },
+    
+    playSession: function() {
+      window.playInterval = setInterval('$("#playhead").css("left", parseInt($("#playhead").css("left"))+1)', 100)
+      Clips.each(function(clip){        
+        window.playTimeout = setTimeout('soundManager.play("'+clip.cid+'")', parseInt(clip.get("position"))*100);
+      });
+    },
+    
+    stopSession: function() {
+      soundManager.stopAll();
+      window.clearInterval(playInterval);
+      window.clearTimeout(playTimeout);
+      $('#playhead').css("left", 0);
     },
     
     addOneAsset: function(asset) {
@@ -267,34 +284,48 @@ $(function(){
     },    
     addAllTracks: function() {
       Tracks.each(this.addOneTrack);
+      $("#playhead").height($(".tracks-list").height());
     },
     addOneClip: function(clip) {
       var view = new ClipView({ model: clip });
       clip.get("track_ids").forEach(function(track_id){
-        console.log(Assets.get(clip.get("asset_id")))
         this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list")
           .append(view.render().el);
-        var asset = Assets.get(clip.get("asset_id"))
-        soundManager.createSound({
-          id: clip.cid,
-          url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A"
-        });
+        
+          var asset = Assets.get(clip.get("asset_id"))        
+          
+            soundManager.createSound({
+              id: clip.cid,
+              autoLoad: true,
+              url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A",
+              whileloading : function(){console.log('sound '+this.sID+' loading, '+this.bytesLoaded+' of '+this.bytesTotal)}
+            })
+            .onposition(parseInt(clip.get("duration")), function(){this.stop()})
+            
       });
-    },    
+    },
     addAllClips: function() {
+      
       Clips.each(function(clip){
+        
         var view = new ClipView({model: clip});
+        
         clip.get("track_ids").forEach(function(track_id){
-          this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list")
-            .append(view.render().el);
-          var asset = Assets.get(clip.get("asset_id"))
+          
+          this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list").append(view.render().el);
+          var asset = Assets.get(clip.get("asset_id"));
+          
           soundManager.createSound({
             id: clip.cid,
-            url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A"
-          });
+            autoLoad: true,
+            url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A",
+            whileloading : function(){console.log('sound '+this.sID+' loading, '+this.bytesLoaded+' of '+this.bytesTotal)}
+          }).onposition(parseInt(clip.get("duration")), function(){this.stop()})              
+            
         });
-      });
-    }
+            
+      });        
+    } 
     
   });
   

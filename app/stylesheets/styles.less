@@ -67,6 +67,17 @@ ul{
 #wrapper{
   padding: 10px;
 }
+#front-wrap{
+  text-align: center;
+  margin-top: 70px;
+  #login{
+    display: block;
+    margin-top: 20px;
+  }
+  #session{
+    margin-top: 20px;
+  }
+}
 
 
 
@@ -154,6 +165,16 @@ ul{
       background: @gray2 url(/images/editor/timemarks.png) repeat-x left bottom;
       border-top: 1px solid #333;
       height: 25px;
+    }
+    #playhead{
+      position: absolute;
+      width: 1px;
+      background-color: @gray2;
+      top: 0;
+      z-index: 1;
+    }
+    .tracks-list{
+      position: relative;
     }
     .track{
       height: 98px;

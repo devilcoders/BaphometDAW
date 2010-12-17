@@ -1,24 +1,24 @@
 $(function(){
 
   soundManager.url = '/flash/';
-  soundManager.flashVersion = 9; 
+  soundManager.flashVersion = 9;
 
   $('#add-track').click(function(e){
     e.preventDefault();
     $.ajax({
-      type: "POST",
-      url:  '/api/tracks/new.json',
-      data: {
-        session_id      :  location.pathname.split('/')[2]
-      },
-      success: function(data){
-        console.log(data[0]);
-        var track = new Track(data[0]);
-        console.log(track);
-        Tracks.add([
-          track
-        ]);
-      }
+      type          :  "POST",
+      url           :  '/api/tracks/new.json',
+      data          :  {
+                          session_id      :  location.pathname.split('/')[2]
+                       },
+      success       :  function(data){
+                         console.log(data[0]);
+                         var track = new Track(data[0]);
+                         console.log(track);
+                         Tracks.add([
+                           track
+                         ]);
+                       }
     });
   });
 
@@ -32,5 +32,7 @@ $(function(){
       //$("#app-clips-controls")
     })
   })
+  
+  
 
 });

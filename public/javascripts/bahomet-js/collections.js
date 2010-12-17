@@ -6,8 +6,12 @@ $(function(){
   -------------------------------------------*/
   window.ClipList = Backbone.Collection.extend({ 
     
-    model   :  Clip,
-    url     :  "/api/session/clips.json"
+    model       :  Clip,
+    url         :  "/api/session/clips.json",
+    
+    comparator  :  function(model) {
+      return model.get("position");
+    }
     
   });
   

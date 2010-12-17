@@ -2,7 +2,7 @@
   = javascript_include_tag 'external/jquery-1.4.4.min.js', 'external/jquery-ui-1.8.7.min', 'external/json2.js', |
                            'external/underscore.js', 'external/backbone.js', 'external/soundmanager2.js', |
                            'bahomet-js/models.js', 'bahomet-js/collections.js', 'bahomet-js/controllers.js', |
-                           'bahomet-js/views.js', 'bahomet-js/app.js', 'sync.js' |
+                           'bahomet-js/views.js', 'bahomet-js/app.js'
 
 %section#app-controls.app-section
   %section#controls-title
@@ -27,7 +27,7 @@
         %li
           %a#play{:href => "#"} play
         %li
-          %a#play{:href => "#"} stop
+          %a#stop{:href => "#"} stop
         %li
           %a#add-track{:href => "#"} add track
 %section#app-assets.app-section
@@ -35,8 +35,9 @@
     %ul
 %section#app-timeline.app-section
   .tracks-block
-    #time-markers
+    #time-markers    
     %ul.tracks-list
+      #playhead
 %section#app-info.app-section
   %section#debug-info
     .info-console
