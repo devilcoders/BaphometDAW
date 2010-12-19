@@ -3,6 +3,9 @@ source :rubygems
 # Project requirements
 gem 'rake'
 gem 'rack-flash'
+gem 'coffee-script'
+gem 'rack-coffee', :require => 'rack/coffee'
+
 gem 'thin' # or mongrel
 
 # Component requirements

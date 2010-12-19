@@ -1,4 +1,5 @@
 class Bahomet < Padrino::Application
+  register CoffeeInitializer
   register LessInitializer
   register Padrino::Mailer
   register Padrino::Helpers
@@ -11,7 +12,7 @@ class Bahomet < Padrino::Application
   # set :reload, false          # Reload application files (default in development)
   # set :default_builder, "foo" # Set a custom form builder (default 'StandardFormBuilder')
   # set :locale_path, "bar"     # Set path for I18n translations (defaults to app/locale/)
-  enable  :sessions           # Disabled by default
+  enable  :sessions             # Disabled by default
   # disable :flash              # Disables rack-flash (enabled by default if sessions)
   # layout  :my_layout          # Layout can be in views/layouts/foo.ext or views/foo.ext (default :application)
   #
