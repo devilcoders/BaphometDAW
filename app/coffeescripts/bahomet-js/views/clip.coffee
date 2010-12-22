@@ -18,10 +18,10 @@ $( () ->
     
 
     updatePosition: ->
-      offset = $("#clip-"+this.model.get("_id")).offset()
+      offset = $("#clip-"+this.model.get("_id")).position()
       $.post('/api/clips/set_position.json', {
         clip_id: this.model.get("_id")
-        position: offset.left - 330
+        position: offset.left
       }
       (data) ->
         if data.clip[0].success
@@ -30,6 +30,7 @@ $( () ->
     
     updateClipInfo: ->
       $(this.el).find('.clip-duration').text($(this.el).width()/10)
+      $(this.el).append '<div class="clip-marker clip-marker-right" />'
 
     updateDuration: ->
       $.post('/api/clips/set_duration.json', {
@@ -39,10 +40,11 @@ $( () ->
       (data) ->
         if data.clip[0].success
           console.log "Duration changed in db!"
+          $(this.el).find('.clip-marker').remove();
       )
     
     getClipInfo: ->
-      $('#clip-preview').html('<img class="clip-waveform" src="'+this.model.get("waveform_url")+'" width="100%" height="100px" />')
+      $('#clip-preview').html '<img class="clip-waveform" src="'+this.model.get("waveform_url")+'" width="100%" height="100px" />'
       
     render: ->
       track = this
@@ -59,13 +61,11 @@ $( () ->
       $(this.el).draggable
         axis        : "x"
         containment : '.track'
-        grid        : [PIXEL_SECOND/2, 0]
         stack       : ".clip"
         distance    : PIXEL_SECOND
       
       $(this.el).resizable
         handles     : 'e'
-        grid        : [0, PIXEL_SECOND/2]        
         maxWidth    : this.model.get("asset_duration")/100,
         minWidth    : PIXEL_SECOND
       

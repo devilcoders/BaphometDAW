@@ -9,6 +9,9 @@ $( () ->
       "click #add-track"  :  "addTrack"
 
     initialize: ->
+      
+      window.playTimeouts = new Array
+      
       _.bindAll(this, 
         'addOneAsset', 'addAllAssets', 
         'addOneTrack', 'addAllTracks',
@@ -37,9 +40,11 @@ $( () ->
         filter: '.clip'
     
     playSession: ->
-      window.playInterval = setInterval('$("#playhead").css("left", parseInt($("#playhead").css("left"))+1)', 100)
+      window.playInterval = setInterval(function(){
+        $('#playhead').css('left', parseInt($('#playhead').css('left')+1))
+      }, 100)
       Clips.each((clip) ->
-        window.playTimeout = setTimeout('soundManager.play("'+clip.cid+'")', parseInt(clip.get("position"))*100)
+        window.playTimeouts[""+clip.cid+""] = setTimeout('soundManager.play("'+clip.cid+'")', parseInt(clip.get("position"))*100)
       )
       
     addTrack: ->
@@ -52,9 +57,10 @@ $( () ->
           Tracks.add([new Track(data[0])])      
     
     stopSession: ->
-      soundManager.stopAll()
+      soundManager.stopAll()          
+      for key in window.playTimeouts
+        clearTimeout(window.playTimeouts[key])
       window.clearInterval(playInterval)
-      window.clearTimeout(playTimeout)
       $('#playhead').css("left", 0)
     
     addOneAsset: (asset) ->
@@ -74,6 +80,8 @@ $( () ->
       
     addOneClip: (clip) ->
       view = new ClipView({ model: clip })
+          
+          
       clip.get("track_ids").forEach((track_id) ->
         this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list").append(view.render().el)        
         
@@ -83,8 +91,13 @@ $( () ->
           id: clip.cid
           autoLoad: true
           url: clip.get("filepath")+"?secret_token="+asset.get("secret_token")+"&consumer_key=HPVSlSWvz2eoFt5jGGB8A"
-          whileloading : -> 
-            console.log 'sound '+this.sID+' loading, '+this.bytesLoaded+' of '+this.bytesTotal
+          whileloading: ->
+            $('#clip-'+clip.get('_id') + ' .clip-loader').css
+              width: (this.bytesLoaded/this.bytesTotal)*100 + '%'
+          onload: ->
+            $('#clip-'+clip.get('_id')).css
+              opacity: 1
+            $('#clip-'+clip.get('_id') + ' .clip-loader').fadeOut()
         }).onposition(parseInt(clip.get("duration")), () -> this.stop())
             
       )
