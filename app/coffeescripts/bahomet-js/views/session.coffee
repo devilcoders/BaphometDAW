@@ -9,9 +9,6 @@ $( () ->
       "click #add-track"  :  "addTrack"
 
     initialize: ->
-      
-      window.playTimeouts = new Array
-      
       _.bindAll(this, 
         'addOneAsset', 'addAllAssets', 
         'addOneTrack', 'addAllTracks',
@@ -40,11 +37,13 @@ $( () ->
         filter: '.clip'
     
     playSession: ->
-      window.playInterval = setInterval(function(){
-        $('#playhead').css('left', parseInt($('#playhead').css('left')+1))
-      }, 100)
+      window.playInterval = setInterval( () ->
+        $('#playhead').css('left', $('#playhead').css("left")+1)
+      100)
       Clips.each((clip) ->
-        window.playTimeouts[""+clip.cid+""] = setTimeout('soundManager.play("'+clip.cid+'")', parseInt(clip.get("position"))*100)
+        window.Timeout.set(clip.cid, ->
+          soundManager.play(clip.cid) 
+        parseInt(clip.get("position"))*100)
       )
       
     addTrack: ->
@@ -57,10 +56,11 @@ $( () ->
           Tracks.add([new Track(data[0])])      
     
     stopSession: ->
-      soundManager.stopAll()          
-      for key in window.playTimeouts
-        clearTimeout(window.playTimeouts[key])
-      window.clearInterval(playInterval)
+      soundManager.stopAll()
+      Clips.each((clip) ->
+        window.Timeout.clear(clip.cid)
+      )
+      clearInterval(window.playInterval)
       $('#playhead').css("left", 0)
     
     addOneAsset: (asset) ->
