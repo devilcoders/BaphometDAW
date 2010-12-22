@@ -38,8 +38,10 @@ $( () ->
     
     playSession: ->
       window.playInterval = setInterval( () ->
-        $('#playhead').css('left', $('#playhead').css("left")+1)
-      100)
+        left = parseInt($("#playhead").css("left"))
+        console.log(left)
+        $("#playhead").css("left", left+1+"px")
+      ,100)
       Clips.each((clip) ->
         window.Timeout.set(clip.cid, ->
           soundManager.play(clip.cid) 
