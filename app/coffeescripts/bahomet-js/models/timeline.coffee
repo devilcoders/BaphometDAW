@@ -1,10 +1,7 @@
 $( () ->
-  window.Clip = Backbone.Model.extend
+  window.Timeline = Backbone.Model.extend  
   
     set: (attributes, options) ->
       Backbone.Model.prototype.set.call(this, attributes, options)
 
-    clear: ->
-      this.destroy()
-      this.view.remove()
 )

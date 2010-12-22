@@ -13,6 +13,7 @@ $( () ->
         'addOneAsset', 'addAllAssets', 
         'addOneTrack', 'addAllTracks',
         'addOneClip' , 'addAllClips' ,
+        'addTimeline',
         'render'
       )
       
@@ -32,15 +33,22 @@ $( () ->
       
       soundManager.onload = ->
         Clips.fetch()
+        window.SessionTimeline = new Timeline
+          id: 1
+          playhead_position: 0
+          session_state: "stop"
       
       $(".tracks-list").selectable
         filter: '.clip'
     
     playSession: ->
+      SessionTimeline.set
+        session_state: "play"
       window.playInterval = setInterval( () ->
         left = parseInt($("#playhead").css("left"))
-        console.log(left)
         $("#playhead").css("left", left+1+"px")
+        SessionTimeline.set
+          playhead_position: left
       ,100)
       Clips.each((clip) ->
         window.Timeout.set(clip.cid, ->
@@ -55,9 +63,12 @@ $( () ->
         data : 
           session_id : location.pathname.split('/')[2]          
         success : (data) ->
-          Tracks.add([new Track(data[0])])      
-    
+          Tracks.add([new Track(data[0])])
+          
     stopSession: ->
+      SessionTimeline.set
+        session_state: "stop"
+        playhead_position: 0
       soundManager.stopAll()
       Clips.each((clip) ->
         window.Timeout.clear(clip.cid)
@@ -100,12 +111,11 @@ $( () ->
             $('#clip-'+clip.get('_id')).css
               opacity: 1
             $('#clip-'+clip.get('_id') + ' .clip-loader').fadeOut()
-        }).onposition(parseInt(clip.get("duration")), () -> this.stop())
+        }).onposition(parseInt(clip.get("duration")), -> this.stop())
             
       )
           
     addAllClips: ->
-      
       Clips.each(this.addOneClip)
   
   window.Session = new SessionView

@@ -18,6 +18,7 @@ $( () ->
     
 
     updatePosition: ->
+      clipObj = this
       offset = $("#clip-"+this.model.get("_id")).position()
       $.post('/api/clips/set_position.json', {
         clip_id: this.model.get("_id")
@@ -25,7 +26,8 @@ $( () ->
       }
       (data) ->
         if data.clip[0].success
-          console.log "Position changed in db!"
+          clipObj.model.set
+            position: data.clip[0].position
       )
     
     updateClipInfo: ->
@@ -33,13 +35,15 @@ $( () ->
       $(this.el).append '<div class="clip-marker clip-marker-right" />'
 
     updateDuration: ->
+      clipObj = this
       $.post('/api/clips/set_duration.json', {
         clip_id: this.model.get("_id")
         duration: parseInt(($("#clip-"+this.model.get("_id")).width()/10)*1000)
       },
       (data) ->
         if data.clip[0].success
-          console.log "Duration changed in db!"
+          clipObj.model.set
+            duration: data.clip[0].d
           $(this.el).find('.clip-marker').remove();
       )
     
