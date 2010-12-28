@@ -1,6 +1,11 @@
+- content_for :head_css do
+  = stylesheet_link_tag 'jquery/jquery.jscrollpane.css'
+
 - content_for :head_js do
   %script{ :src => '/javascripts/external/jquery-1.4.4.min.js', :type => "text/javascript" }
   %script{ :src => '/javascripts/external/jquery-ui-1.8.7.min.js', :type => "text/javascript" }
+  %script{ :src => '/javascripts/external/jquery.jscrollpane.min.js', :type => "text/javascript" }
+  %script{ :src => '/javascripts/external/jquery.mousewheel.js', :type => "text/javascript" }
   %script{ :src => '/javascripts/external/json2.js', :type => "text/javascript" }
   %script{ :src => '/javascripts/external/underscore.js', :type => "text/javascript" }
   %script{ :src => '/javascripts/external/backbone.js', :type => "text/javascript" }
@@ -28,49 +33,57 @@
   %script{ :src => '/coffeescripts/bahomet-js/views/track.js', :type => "text/javascript" }
   %script{ :src => '/coffeescripts/bahomet-js/views/session.js', :type => "text/javascript" }
   %script{ :src => '/coffeescripts/bahomet-js/views/user.js', :type => "text/javascript" }
-  
 
 %section#app-controls.app-section
+
   %section#controls-title
     .controls-block
       %ul.inline
         %li
-          %input#title{:type => "text", :value => "#{@title}", :disabled => "disabled"}
+          %input#title{ :type => "text", :value => "#{@title}", :disabled => "disabled" }
+          
   %section#controls-tempo
     .controls-block
       %ul.inline
         %li
-          %input#tempo{:type => "text", :value => "120"}
+          %input#tempo{ :type => "text", :value => "120" }
         %li
-          %a#metronome{:href => "#"} metronome
+          %a#metronome{ :href => "#" } metronome
+          
   %section#controls-management
     .controls-block
       %ul.inline
         %li
-          %a#follow{:href => "#"} follow
+          %a#follow{ :href => "#" } follow
         %li
-          %input#positions{:type => "text", :value => "00:00:00"}
+          %input#positions{ :type => "text", :value => "00:00:00" }
         %li
-          %a#play{:href => "#"} play
+          %a#play{ :href => "#" } play
         %li
-          %a#stop{:href => "#"} stop
+          %a#stop{ :href => "#" } stop
         %li
-          %a#add-track{:href => "#"} add track
+          %a#add-track{ :href => "#" } add track
+          
 %section#app-assets.app-section
   .assets-block
     %ul
+    
 %section#app-timeline.app-section
   .tracks-block
-    #time-markers    
+    #time-markers
     %ul.tracks-list
       #playhead
+      
 %section#app-info.app-section
+
   %section#debug-info
     .info-console
+    
   %section#clip-info.state-hidden
     #clip-text-data
     #clip-actions
     #clip-preview
+    
 %section#app-clips-controls.app-section
   %ul
 

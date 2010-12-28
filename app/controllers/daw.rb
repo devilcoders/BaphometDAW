@@ -84,6 +84,16 @@ Bahomet.controllers :daw do
       redirect "/"
     end
   end
+  
+  get :remove_session, :map => "/session/remove/:id" do
+    if not session[:user_id].nil?
+      user = User.find(session[:user_id])
+      session = user.sessions.find(params[:id])
+      if session.destroy
+        redirect '/'
+      end
+    end
+  end
 
   get :index, :map => "/" do
     if not session[:user_id].nil?

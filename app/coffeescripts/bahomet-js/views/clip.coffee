@@ -3,7 +3,7 @@ $( () ->
 
     tagName         :  "li"
     className       :  "clip"
-    template        :  _.template($('#clip-template').html())
+    template        :  _.template $('#clip-template').html()
     
     events: 
       "resizestop"  :  "updateDuration"
@@ -36,6 +36,7 @@ $( () ->
 
     updateDuration: ->
       clipObj = this
+      $(clipObj.el).find('.clip-marker').remove();
       $.post('/api/clips/set_duration.json', {
         clip_id: this.model.get("_id")
         duration: parseInt(($("#clip-"+this.model.get("_id")).width()/10)*1000)
@@ -43,8 +44,7 @@ $( () ->
       (data) ->
         if data.clip[0].success
           clipObj.model.set
-            duration: data.clip[0].d
-          $(this.el).find('.clip-marker').remove();
+            duration: data.clip[0].duration
       )
     
     getClipInfo: ->
