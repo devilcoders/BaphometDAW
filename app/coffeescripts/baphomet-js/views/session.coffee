@@ -17,6 +17,8 @@ $( () ->
         'render'
       )
       
+      $(".tracks-block").jScrollPane()
+      
       Assets.bind('add'     , this.addOneAsset)
       Assets.bind('refresh' , this.addAllAssets)
       Assets.bind('all'     , this.render)
@@ -38,9 +40,10 @@ $( () ->
         Clips.fetch()
       
         window.SessionTimeline = new Timeline
-          id: 1
+          id: 0
           playhead_position: 0
           session_state: "stop"
+          timeline_width: $(".tracks-block").width()
       
       # --------------------------------------------------
       # Make all clips on timeline selectable
@@ -102,14 +105,23 @@ $( () ->
     addOneTrack: (track) ->
       view = new TrackView model: track
       this.$("#app-timeline ul.tracks-list").append view.render().el
+      $("#playhead").height $(".tracks-list").height()
       
     addAllTracks: ->
       Tracks.each this.addOneTrack
-      $("#playhead").height $(".tracks-list").height()
-      $(".tracks-block").jScrollPane()
       
     addOneClip: (clip) ->
       view = new ClipView model: clip
+      duration = clip.get("duration")/100
+      position = clip.get("position")
+      timelineWidth = SessionTimeline.get("timeline_width")
+      
+      if (duration+position) > timelineWidth 
+        $('.tracks-block').width(timelineWidth + duration+position)
+        SessionTimeline.set
+          "timeline_width": timelineWidth + duration+position
+        api = $('.tracks-blocks').data('jsp')
+        api.reinitialized()
           
       clip.get("track_ids").forEach (track_id) ->
         this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list").append(view.render().el)        

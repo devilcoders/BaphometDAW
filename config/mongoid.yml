@@ -10,11 +10,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: bahomet_development
+  database: baphomet_development
 
 test:
   <<: *defaults
-  database: bahomet_test
+  database: baphomet_test
 
 # set these environment variables on your prod server
 production:

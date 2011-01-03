@@ -15,7 +15,7 @@ $( () ->
       this.model.view = this
     
     render: ->
-      $(this.el).html(this.template(this.model.toJSON()))
+      $(this.el).html this.template(this.model.toJSON())
     
       $(this.el).droppable
         accept: '.asset'    
@@ -24,7 +24,7 @@ $( () ->
     
 
     drop: (event, ui) ->
-      asset = Assets.get(ui.draggable.context.children[0].id.split('-')[1])
+      asset = Assets.get ui.draggable.context.children[0].id.split('-')[1]
       
       $.ajax
         type: "POST"

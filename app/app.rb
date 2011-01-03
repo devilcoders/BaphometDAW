@@ -1,4 +1,4 @@
-class Bahomet < Padrino::Application
+class Baphomet < Padrino::Application
   register CoffeeInitializer
   register LessInitializer
   register Padrino::Mailer

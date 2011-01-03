@@ -1,4 +1,4 @@
-Bahomet.controllers :api do
+Baphomet.controllers :api do
   # get :index, :map => "/foo/bar" do
   #   session[:foo] = "bar"
   #   render 'index'

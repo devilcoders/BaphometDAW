@@ -1,4 +1,4 @@
-Bahomet.controllers :daw do
+Baphomet.controllers :daw do
   
   soundcloud_config = File.join(File.dirname(__FILE__), "../..", "config", "soundcloud.yml")
   $soundcloud = YAML.load(File.new(soundcloud_config).read)
