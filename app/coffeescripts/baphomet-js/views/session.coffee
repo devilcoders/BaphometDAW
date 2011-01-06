@@ -120,8 +120,6 @@ $( () ->
         $('.tracks-block').width(timelineWidth + duration+position)
         SessionTimeline.set
           "timeline_width": timelineWidth + duration+position
-        api = $('.tracks-blocks').data('jsp')
-        api.reinitialized()
           
       clip.get("track_ids").forEach (track_id) ->
         this.$("#app-timeline ul.tracks-list li #track-"+track_id+" ul.clips-list").append(view.render().el)        
